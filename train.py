@@ -174,7 +174,8 @@ def main():
           data.append({"image":data_dir+"images/"+name,"annotation":data_dir+"labels-png/"+name[:-4]+".png"})
 
      # 单独微调灰度为2的类别
-     class_id = np.array([1])
+     class_id = np.array([2])
+     #class_id = np.array([1,2,3]) # 微调多个类别
 
      save_path = '/home/user/works/LLL-4090/segment-anything-2-main/runs'
 
