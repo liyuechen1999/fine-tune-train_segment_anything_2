@@ -16,7 +16,6 @@ from sam2.sam2_image_predictor import SAM2ImagePredictor
 def read_batch(data, class_id): # read random image and its annotaion from  the dataset (LabPics)
 
      #  select image
-
      ent  = data[np.random.randint(len(data))] # choose random entry
      gray_img = cv2.imread(ent["image"], cv2.IMREAD_GRAYSCALE)
      ann_map = cv2.imread(ent["annotation"], cv2.IMREAD_GRAYSCALE) # read annotation]
@@ -70,18 +69,12 @@ predictor.model.image_encoder.train(True)
 def train_model(predictor, data, class_id, save_path, num_iterations=100000):
     """训练模型"""
 
-    from datetime import datetime
-
     # 创建保存目录
-    
     save_path = os.path.join(save_path,\
                              'class'+np.array2string(class_id).replace(' ','_'))
-
     # 判断目录是否存在，如果不存在则创建
     if not os.path.exists(save_path):
         os.makedirs(save_path)
-
-
     
     optimizer = torch.optim.AdamW(params=predictor.model.parameters(), lr=1e-5, weight_decay=4e-5)
     scaler = torch.cuda.amp.GradScaler() # mixed precision
